@@ -1,34 +1,34 @@
-import { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
+import { useFormik } from 'formik'
 
 function LoginForm() {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
 
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      password: '',
+    },
+  })
   return (
     <Form>
       <Form.Group controlId='username'>
         <Form.Control
           type='text'
           placeholder='username'
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          {...formik.getFieldProps('username')}
         />
       </Form.Group>
       <Form.Group controlId='password'>
         <Form.Control
           type='password'
           placeholder='password'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          {...formik.getFieldProps('password')}
         />
       </Form.Group>
       <Form.Group controlId='loginBtn'>
-          <Button
-            className='btn-block'
-            variant='primary'>
-                Login
-          </Button>
+        <Button className='btn-block' variant='primary'>
+          Login
+        </Button>
       </Form.Group>
     </Form>
   )
