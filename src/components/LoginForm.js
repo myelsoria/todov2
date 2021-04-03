@@ -1,10 +1,13 @@
-import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Form, Button, Alert } from 'react-bootstrap'
 import { useFormik } from 'formik'
 import { loginFormValidation } from '../validation/loginFormValidation'
+import { login } from '../actions/userActions'
+import { Redirect } from 'react-router'
 
 function LoginForm() {
-  const [loginError, setLoginError] = useState('')
+  const { username, error } = useSelector((state) => state.userLogin)
+  const dispatch = useDispatch()
 
   const formik = useFormik({
     initialValues: {
@@ -13,13 +16,12 @@ function LoginForm() {
     },
     validationSchema: loginFormValidation,
     onSubmit: (values) => {
-      setLoginError('')
-      if (values.username !== 'myaccount' || values.password !== '123456')
-        setLoginError('Invalid Credentials')
+      dispatch(login(values))
     },
   })
   return (
     <Form onSubmit={formik.handleSubmit}>
+      {username && <Redirect to='/todolist' />}
       <Form.Group controlId='username'>
         <Form.Control
           type='text'
@@ -28,7 +30,7 @@ function LoginForm() {
         />
         {formik.touched.username && formik.errors.username ? (
           <span className='text-danger'>{formik.errors.username}</span>
-        ): null }
+        ) : null}
       </Form.Group>
       <Form.Group controlId='password'>
         <Form.Control
@@ -38,14 +40,14 @@ function LoginForm() {
         />
         {formik.touched.password && formik.errors.password ? (
           <span className='text-danger'>{formik.errors.password}</span>
-        ) : null }
+        ) : null}
       </Form.Group>
       <Form.Group controlId='loginBtn'>
         <Button type='submit' className='btn-block' variant='primary'>
           Login
         </Button>
       </Form.Group>
-      {loginError && <Alert variant='danger'>{loginError}</Alert>}
+      {error && <Alert variant='danger'>{error}</Alert>}
     </Form>
   )
 }
