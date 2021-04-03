@@ -11,3 +11,9 @@ export const login = (values) => {
       }
   }
 }
+
+export const logout = () => {
+  return {
+    type: 'USER_LOGOUT'
+  }
+}
