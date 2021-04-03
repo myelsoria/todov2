@@ -3,10 +3,9 @@ import { Form, Button, Alert } from 'react-bootstrap'
 import { useFormik } from 'formik'
 import { loginFormValidation } from '../validation/loginFormValidation'
 import { login } from '../actions/userActions'
-import { Redirect } from 'react-router'
 
 function LoginForm() {
-  const { username, error } = useSelector((state) => state.userLogin)
+  const { error } = useSelector((state) => state.userLogin)
   const dispatch = useDispatch()
 
   const formik = useFormik({
@@ -21,7 +20,6 @@ function LoginForm() {
   })
   return (
     <Form onSubmit={formik.handleSubmit}>
-      {username && <Redirect to='/todolist' />}
       <Form.Group controlId='username'>
         <Form.Control
           type='text'
