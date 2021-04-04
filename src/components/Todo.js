@@ -6,7 +6,7 @@ function Todo({ todo, onDeleteTodo }) {
 
   return (
     <ListGroup.Item
-      style={{ minHeight: '42px !important', padding: '4px 12px' }}
+      style={{ padding: '4px 12px', minHeight: '42px' }}
       className='d-flex justify-content-between align-items-center'
       onMouseEnter={() => setDeleteBtn(true)}
       onMouseLeave={() => setDeleteBtn(false)}
