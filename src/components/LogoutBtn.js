@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap'
 function LogoutBtn() {
   const dispatch = useDispatch()
   return (
-    <Button variant='primary' onClick={() => dispatch(logout())}>
+    <Button variant='primary' size='sm' onClick={() => dispatch(logout())}>
       Logout
     </Button>
   )
